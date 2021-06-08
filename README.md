@@ -1,5 +1,5 @@
 # aws-eks
-
+```
 #How to create EKS Cluster
 
 #eksctl create cluster --name=niru-eks \
@@ -101,5 +101,31 @@ eksctl create nodegroup --cluster=niru-eks \
 2021-06-08 14:41:33 [ℹ]  checking security group configuration for all nodegroups
 2021-06-08 14:41:33 [ℹ]  all nodegroups have up-to-date configuration
 =============================================================================================================
-        
-        
+Deleting EKS Cluster..
+[root@minikube01 tmp]# eksctl delete cluster niru-eks
+2021-06-08 15:37:47 [ℹ]  eksctl version 0.52.0
+2021-06-08 15:37:47 [ℹ]  using region us-east-1
+2021-06-08 15:37:47 [ℹ]  deleting EKS cluster "niru-eks"
+2021-06-08 15:38:00 [ℹ]  deleted 0 Fargate profile(s)
+2021-06-08 15:38:07 [✔]  kubeconfig has been updated
+2021-06-08 15:38:07 [ℹ]  cleaning up AWS load balancers created by Kubernetes objects of Kind Service or Ingress
+2021-06-08 15:38:36 [ℹ]  3 sequential tasks: { delete nodegroup "niru-eks-ng-public1", delete IAM OIDC provider, delete cluster control plane "niru-eks" [async] }
+2021-06-08 15:38:36 [ℹ]  will delete stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:38:36 [ℹ]  waiting for stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1" to get deleted
+2021-06-08 15:38:36 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:38:53 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:39:15 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:39:41 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:40:04 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:40:30 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:40:55 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:41:20 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:41:43 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:42:07 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:42:30 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:42:52 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:43:17 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:43:39 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-08 15:43:58 [ℹ]  will delete stack "eksctl-niru-eks-cluster"
+2021-06-08 15:43:58 [✔]  all cluster resources were deleted
+```

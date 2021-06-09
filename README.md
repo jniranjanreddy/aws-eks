@@ -134,11 +134,87 @@ Deleting EKS Cluster..
 2021-06-08 15:43:58 [✔]  all cluster resources were deleted
 ```
 ```
+#How to create a new NodeGroup
+[root@minikube01 myworkspace]# cat node-group.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: niru-eks
+  region: us-east-1
+
+nodeGroups:
+  - name: non-prod-1
+    instanceType: t2.small
+    desiredCapacity: 3
+    ssh: # use existing EC2 key
+      publicKeyName: kube-demo
+
+###Before adding NodeGroup
+[root@minikube01 ~]# kubectl get nodes
+NAME                            STATUS   ROLES    AGE   VERSION
+ip-192-168-17-63.ec2.internal   Ready    <none>   9h    v1.19.6-eks-49a6c0
+ip-192-168-50-92.ec2.internal   Ready    <none>   8h    v1.19.6-eks-49a6c0
+
+[root@minikube01 myworkspace]# eksctl create nodegroup --config-file=node-group.yaml --include='non-prod-1'
+2021-06-09 11:50:54 [ℹ]  eksctl version 0.52.0
+2021-06-09 11:50:54 [ℹ]  using region us-east-1
+2021-06-09 11:51:00 [ℹ]  will use version 1.19 for new nodegroup(s) based on control plane version
+2021-06-09 11:51:29 [ℹ]  nodegroup "non-prod-1" will use "ami-0ef0c69399dbb5f3f" [AmazonLinux2/1.19]
+2021-06-09 11:51:29 [ℹ]  using EC2 key pair "kube-demo"
+2021-06-09 11:51:37 [ℹ]  1 existing nodegroup(s) (niru-eks-ng-public1) will be excluded
+2021-06-09 11:51:37 [ℹ]  combined include rules: non-prod-1
+2021-06-09 11:51:37 [ℹ]  1 nodegroup (non-prod-1) was included (based on the include/exclude rules)
+2021-06-09 11:51:37 [ℹ]  will create a CloudFormation stack for each of 1 nodegroups in cluster "niru-eks"
+2021-06-09 11:51:38 [ℹ]  2 sequential tasks: { fix cluster compatibility, 1 task: { 1 task: { create nodegroup "non-prod-1" } } }
+2021-06-09 11:51:38 [ℹ]  checking cluster stack for missing resources
+2021-06-09 11:51:39 [ℹ]  cluster stack has all required resources
+2021-06-09 11:51:39 [ℹ]  building nodegroup stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:51:39 [ℹ]  --nodes-min=3 was set automatically for nodegroup non-prod-1
+2021-06-09 11:51:39 [ℹ]  --nodes-max=3 was set automatically for nodegroup non-prod-1
+2021-06-09 11:51:40 [ℹ]  deploying stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:51:40 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:51:56 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:52:19 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:52:45 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:53:08 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:53:34 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:53:59 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:54:24 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:54:47 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:55:11 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:55:43 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:56:06 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:56:31 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-non-prod-1"
+2021-06-09 11:56:38 [ℹ]  no tasks
+2021-06-09 11:56:43 [ℹ]  adding identity "arn:aws:iam::936766936551:role/eksctl-niru-eks-nodegroup-non-pro-NodeInstanceRole-148JVGRGN0LHO                           " to auth ConfigMap
+2021-06-09 11:56:44 [ℹ]  nodegroup "non-prod-1" has 0 node(s)
+2021-06-09 11:56:44 [ℹ]  waiting for at least 3 node(s) to become ready in "non-prod-1"
+2021-06-09 11:57:30 [ℹ]  nodegroup "non-prod-1" has 3 node(s)
+2021-06-09 11:57:30 [ℹ]  node "ip-192-168-15-198.ec2.internal" is ready
+2021-06-09 11:57:30 [ℹ]  node "ip-192-168-22-1.ec2.internal" is ready
+2021-06-09 11:57:30 [ℹ]  node "ip-192-168-40-22.ec2.internal" is ready
+2021-06-09 11:57:30 [✔]  created 1 nodegroup(s) in cluster "niru-eks"
+2021-06-09 11:57:30 [✔]  created 0 managed nodegroup(s) in cluster "niru-eks"
+2021-06-09 11:57:39 [ℹ]  checking security group configuration for all nodegroups
+2021-06-09 11:57:39 [ℹ]  all nodegroups have up-to-date configuration
+
+### After adding New NodeGroup
+[root@minikube01 myworkspace]# k get nodes
+NAME                             STATUS   ROLES    AGE    VERSION
+ip-192-168-15-198.ec2.internal   Ready    <none>   103s   v1.19.6-eks-49a6c0
+ip-192-168-17-63.ec2.internal    Ready    <none>   9h     v1.19.6-eks-49a6c0
+ip-192-168-22-1.ec2.internal     Ready    <none>   103s   v1.19.6-eks-49a6c0
+ip-192-168-40-22.ec2.internal    Ready    <none>   107s   v1.19.6-eks-49a6c0
+ip-192-168-50-92.ec2.internal    Ready    <none>   9h     v1.19.6-eks-49a6c0
+
+
+
 [root@minikube01 myworkspace]# eksctl get nodegroup --cluster niru-eks
 2021-06-09 12:02:44 [ℹ]  eksctl version 0.52.0
 2021-06-09 12:02:44 [ℹ]  using region us-east-1
-CLUSTER         NODEGROUP               STATUS          CREATED                 MIN SIZE        MAX SIZE        DESIRED CAPACITY        INSTANCE TYPE   IMAGE ID   ASG NAME
-niru-eks        niru-eks-ng-public1     ACTIVE          2021-06-09T06:18:31Z    2               3               2                       t3.medium       AL2_x86_64 eks-d4bcf7b6-0b46-44b0-0330-a64d4bb32e08
-niru-eks        non-prod-1              CREATE_COMPLETE 2021-06-09T15:51:39Z    3               3               3                       t2.small        ami-0ef0c69399dbb5f3f      eksctl-niru-eks-nodegroup-non-prod-1-NodeGroup-1WLW8NIZLC2BP
+CLUSTER    NODEGROUP               STATUS   CREATED                 MIN SIZE  MAX SIZE   DESIRED CAPACITY    INSTANCE TYPE   IMAGE ID   ASG NAME
+niru-eks   niru-eks-ng-public1     ACTIVE   2021-06-09T06:18:31Z    2         3          2                   t3.medium       AL2_x86_64 eks-d4bcf7b6-0b46-44b0-0330-a64d4bb32e08
+niru-eks   non-prod-1       CREATE_COMPLETE 2021-06-09T15:51:39Z    3         3          3                   t2.small        ami-0ef0c69399dbb5f3f      eksctl-niru-eks-nodegroup-non-prod-1-NodeGroup-1WLW8NIZLC2BP
 
 ```

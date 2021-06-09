@@ -1,5 +1,9 @@
 # aws-eks
 ```
+#How to install eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+mv eksctl /usr/local/bin/
+
 #How to create EKS Cluster
 
 #eksctl create cluster --name=niru-eks \
@@ -128,4 +132,13 @@ Deleting EKS Cluster..
 2021-06-08 15:43:39 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
 2021-06-08 15:43:58 [ℹ]  will delete stack "eksctl-niru-eks-cluster"
 2021-06-08 15:43:58 [✔]  all cluster resources were deleted
+```
+```
+[root@minikube01 myworkspace]# eksctl get nodegroup --cluster niru-eks
+2021-06-09 12:02:44 [ℹ]  eksctl version 0.52.0
+2021-06-09 12:02:44 [ℹ]  using region us-east-1
+CLUSTER         NODEGROUP               STATUS          CREATED                 MIN SIZE        MAX SIZE        DESIRED CAPACITY        INSTANCE TYPE   IMAGE ID   ASG NAME
+niru-eks        niru-eks-ng-public1     ACTIVE          2021-06-09T06:18:31Z    2               3               2                       t3.medium       AL2_x86_64 eks-d4bcf7b6-0b46-44b0-0330-a64d4bb32e08
+niru-eks        non-prod-1              CREATE_COMPLETE 2021-06-09T15:51:39Z    3               3               3                       t2.small        ami-0ef0c69399dbb5f3f      eksctl-niru-eks-nodegroup-non-prod-1-NodeGroup-1WLW8NIZLC2BP
+
 ```

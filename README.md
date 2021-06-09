@@ -218,3 +218,15 @@ niru-eks   niru-eks-ng-public1     ACTIVE   2021-06-09T06:18:31Z    2         3 
 niru-eks   non-prod-1       CREATE_COMPLETE 2021-06-09T15:51:39Z    3         3          3                   t2.small        ami-0ef0c69399dbb5f3f      eksctl-niru-eks-nodegroup-non-prod-1-NodeGroup-1WLW8NIZLC2BP
 
 ```
+```
+[root@minikube01 myworkspace]# eksctl get nodegroup --cluster niru-eks
+2021-06-09 16:30:56 [ℹ]  eksctl version 0.52.0
+2021-06-09 16:30:56 [ℹ]  using region us-east-1
+CLUSTER         NODEGROUP               STATUS          CREATED                 MIN SIZE        MAX SIZE        DESIRED CAPACITY        INSTANCE TYPE   IMAGE ID   ASG NAME
+niru-eks        niru-eks-ng-public1     ACTIVE          2021-06-09T06:18:31Z    2               3               2                       t3.medium       AL2_x86_64 eks-d4bcf7b6-0b46-44b0-0330-a64d4bb32e08
+niru-eks        non-prod-1              CREATE_COMPLETE 2021-06-09T15:51:39Z    3               3               3                       t2.small        ami-0ef0c69399dbb5f3f       eksctl-niru-eks-nodegroup-non-prod-1-NodeGroup-1WLW8NIZLC2BP
+niru-eks        non-prod-2              CREATE_COMPLETE 2021-06-09T19:45:16Z    1               1               1                       t2.small        ami-0ef0c69399dbb5f3f       eksctl-niru-eks-nodegroup-non-prod-2-NodeGroup-5BDCRYDII9JC
+niru-eks        non-prod-managed        `ACTIVE`          2021-06-09T20:25:36Z    1               4               1                       t3.medium       AL2_x86_64 eks-aabcf939-d0a4-ed4c-7420-f6460828ab84
+[root@minikube01 myworkspace]#
+
+```

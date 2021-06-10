@@ -228,5 +228,121 @@ niru-eks        non-prod-1              CREATE_COMPLETE 2021-06-09T15:51:39Z    
 niru-eks        non-prod-2              CREATE_COMPLETE 2021-06-09T19:45:16Z    1               1               1                       t2.small        ami-0ef0c69399dbb5f3f       eksctl-niru-eks-nodegroup-non-prod-2-NodeGroup-5BDCRYDII9JC
 niru-eks        non-prod-managed        `ACTIVE`          2021-06-09T20:25:36Z    1               4               1                       t3.medium       AL2_x86_64 eks-aabcf939-d0a4-ed4c-7420-f6460828ab84
 [root@minikube01 myworkspace]#
+```
 
+```
+#Update Nodegroup...
+
+[root@minikube01 ~]# eksctl upgrade nodegroup --name=niru-eks-ng-public1 --cluster=niru-eks --kubernetes-version=1.18
+2021-06-10 07:44:29 [ℹ]  upgrading nodegroup version
+2021-06-10 07:44:29 [ℹ]  updating nodegroup stack
+2021-06-10 07:44:36 [ℹ]  waiting for CloudFormation changeset "eksctl-update-nodegroup-1623325469" for stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:44:53 [ℹ]  waiting for CloudFormation changeset "eksctl-update-nodegroup-1623325469" for stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:45:00 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:45:18 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:45:44 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:46:10 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:46:32 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:46:56 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:47:20 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:47:43 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:48:06 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:48:28 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:48:50 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:49:12 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:49:37 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:50:03 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:50:28 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:50:54 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:51:16 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:51:38 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:52:02 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:52:24 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:52:47 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:53:13 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:53:40 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:54:06 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:54:31 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:54:57 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:55:20 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:55:46 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:56:09 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:56:35 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:56:56 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:57:18 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:57:43 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:58:06 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:58:29 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:58:51 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:59:14 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 07:59:38 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 08:00:03 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 08:00:25 [ℹ]  waiting for CloudFormation stack "eksctl-niru-eks-nodegroup-niru-eks-ng-public1"
+2021-06-10 08:00:31 [ℹ]  nodegroup successfully upgraded
+[root@minikube01 ~]#
+
+##While updating Cluster, we can observe the status chage..
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS   ROLES    AGE     VERSION
+ip-192-168-13-161.ec2.internal   Ready    <none>   3h5m    v1.17.12-eks-7684af
+ip-192-168-28-190.ec2.internal   Ready    <none>   3h17m   v1.17.12-eks-7684af
+ip-192-168-45-211.ec2.internal   Ready    <none>   3h17m   v1.17.12-eks-7684af
+ip-192-168-53-133.ec2.internal   Ready    <none>   3h5m    v1.17.12-eks-7684af
+
+
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS     ROLES    AGE     VERSION
+ip-192-168-13-161.ec2.internal   Ready      <none>   3h9m    v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   NotReady   <none>   12s     v1.18.9-eks-d1db3c
+ip-192-168-28-190.ec2.internal   Ready      <none>   3h21m   v1.17.12-eks-7684af
+ip-192-168-44-83.ec2.internal    NotReady   <none>   12s     v1.18.9-eks-d1db3c
+ip-192-168-45-211.ec2.internal   Ready      <none>   3h21m   v1.17.12-eks-7684af
+ip-192-168-53-133.ec2.internal   Ready      <none>   3h9m    v1.17.12-eks-7684af
+
+
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS                     ROLES    AGE     VERSION
+ip-192-168-13-161.ec2.internal   Ready                      <none>   3h12m   v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   Ready                      <none>   2m58s   v1.18.9-eks-d1db3c
+ip-192-168-28-190.ec2.internal   Ready,SchedulingDisabled   <none>   3h24m   v1.17.12-eks-7684af
+ip-192-168-44-83.ec2.internal    Ready                      <none>   2m58s   v1.18.9-eks-d1db3c
+ip-192-168-45-211.ec2.internal   Ready                      <none>   3h24m   v1.17.12-eks-7684af
+ip-192-168-53-133.ec2.internal   Ready                      <none>   3h12m   v1.17.12-eks-7684af
+
+
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS                     ROLES    AGE     VERSION
+ip-192-168-0-46.ec2.internal     NotReady                   <none>   26s     v1.18.9-eks-d1db3c
+ip-192-168-13-161.ec2.internal   Ready                      <none>   3h14m   v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   Ready                      <none>   5m5s    v1.18.9-eks-d1db3c
+ip-192-168-44-83.ec2.internal    Ready                      <none>   5m5s    v1.18.9-eks-d1db3c
+ip-192-168-45-211.ec2.internal   Ready,SchedulingDisabled   <none>   3h26m   v1.17.12-eks-7684af
+ip-192-168-53-133.ec2.internal   Ready                      <none>   3h14m   v1.17.12-eks-7684af
+
+
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS     ROLES    AGE     VERSION
+ip-192-168-0-46.ec2.internal     Ready      <none>   2m32s   v1.18.9-eks-d1db3c
+ip-192-168-13-161.ec2.internal   Ready      <none>   3h16m   v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   Ready      <none>   7m11s   v1.18.9-eks-d1db3c
+ip-192-168-44-83.ec2.internal    Ready      <none>   7m11s   v1.18.9-eks-d1db3c
+ip-192-168-51-65.ec2.internal    NotReady   <none>   29s     v1.18.9-eks-d1db3c
+ip-192-168-53-133.ec2.internal   Ready      <none>   3h16m   v1.17.12-eks-7684af
+
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS                     ROLES    AGE     VERSION
+ip-192-168-0-46.ec2.internal     Ready,SchedulingDisabled   <none>   5m25s   v1.18.9-eks-d1db3c
+ip-192-168-13-161.ec2.internal   Ready                      <none>   3h19m   v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   Ready                      <none>   10m     v1.18.9-eks-d1db3c
+ip-192-168-44-83.ec2.internal    Ready                      <none>   10m     v1.18.9-eks-d1db3c
+ip-192-168-53-133.ec2.internal   Ready                      <none>   3h19m   v1.17.12-eks-7684af
+
+
+#Final status, after updating..
+[root@minikube01 ~]# k get nodes
+NAME                             STATUS   ROLES    AGE     VERSION
+ip-192-168-13-161.ec2.internal   Ready    <none>   3h22m   v1.17.12-eks-7684af
+ip-192-168-15-170.ec2.internal   Ready    <none>   13m     v1.18.9-eks-d1db3c
+ip-192-168-44-83.ec2.internal    Ready    <none>   13m     v1.18.9-eks-d1db3c
+ip-192-168-53-133.ec2.internal   Ready    <none>   3h22m   v1.17.12-eks-7684af
 ```

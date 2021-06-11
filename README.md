@@ -7,9 +7,9 @@ mv eksctl /usr/local/bin/
 #How to create EKS Cluster
 
 #eksctl create cluster --name=niru-eks \
-                      --region=us-east-1 \
-					            --zones=us-east-1a,us-east-1b \
-					            --without-nodegroup
+                       --region=us-east-1 \
+	               --zones=us-east-1a,us-east-1b \
+		       --without-nodegroup
             
 2021-06-08 13:58:18 [ℹ]  eksctl version 0.52.0
 2021-06-08 13:58:18 [ℹ]  using region us-east-1
@@ -47,8 +47,8 @@ mv eksctl /usr/local/bin/
 ========================================================================================================
 # eksctl utils associate-iam-oidc-provider \
         --region us-east-1 \
-		    --cluster niru-eks \
-		    --approve
+        --cluster niru-eks \
+	--approve
 2021-06-08 14:23:21 [ℹ]  eksctl version 0.52.0
 2021-06-08 14:23:21 [ℹ]  using region us-east-1
 2021-06-08 14:23:33 [ℹ]  will create IAM Open ID Connect provider for cluster "niru-eks" in "us-east-1"
@@ -56,20 +56,20 @@ mv eksctl /usr/local/bin/
 ========================================================================================================
 eksctl create nodegroup --cluster=niru-eks \
                         --region=us-east-1 \
-						--name=niru-eks-ng-public1 \
-						--node-type=t3.medium \
-						--nodes=2 \
-						--nodes-min=2 \
-						--nodes-max=4 \
-						--node-volume-size=20 \
-						--ssh-access \
-						--ssh-public-key=kube-demo \
-						--managed \
-						--asg-access \
-						--external-dns-access \
-						--full-ecr-access \
-						--appmesh-access \
-						--alb-ingress-access
+			--name=niru-eks-ng-public1 \
+			--node-type=t3.medium \
+			--nodes=2 \
+			--nodes-min=2 \
+			--nodes-max=4 \
+			--node-volume-size=20 \
+			--ssh-access \
+			--ssh-public-key=kube-demo \
+			--managed \
+			--asg-access \
+			--external-dns-access \
+			--full-ecr-access \
+			--appmesh-access \
+			--alb-ingress-access
 
 2021-06-08 14:37:00 [ℹ]  eksctl version 0.52.0
 2021-06-08 14:37:00 [ℹ]  using region us-east-1

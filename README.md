@@ -346,3 +346,12 @@ ip-192-168-15-170.ec2.internal   Ready    <none>   13m     v1.18.9-eks-d1db3c
 ip-192-168-44-83.ec2.internal    Ready    <none>   13m     v1.18.9-eks-d1db3c
 ip-192-168-53-133.ec2.internal   Ready    <none>   3h22m   v1.17.12-eks-7684af
 ```
+
+```
+[root@minikube01 ~]# eksctl get cluster --name=niru-eks
+2021-06-11 05:28:30 [ℹ]  eksctl version 0.52.0
+2021-06-11 05:28:30 [ℹ]  using region us-east-1
+NAME            VERSION STATUS  CREATED                 VPC                     SUBNETS                                                                            SECURITYGROUPS
+niru-eks        1.19    ACTIVE  2021-06-11T08:38:15Z    vpc-0cde53e8ef20db59b   subnet-038e277c98d18d4bf,subnet-07b91da8d5527a61d,subnet-09689b415eb9cd829,subnet-0b87407b9eddde1d8 sg-070b8867c3d6fe49b
+```
+

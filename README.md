@@ -6,6 +6,13 @@ mv eksctl /usr/local/bin/
 
 #How to create EKS Cluster
 
+#Specific version
+eksctl create cluster --version=1.18 \
+                      --name=niru-eks \
+                       --region=us-east-1 \
+	               --zones=us-east-1a,us-east-1b \
+		       --without-nodegroup
+
 #eksctl create cluster --name=niru-eks \
                        --region=us-east-1 \
 	               --zones=us-east-1a,us-east-1b \

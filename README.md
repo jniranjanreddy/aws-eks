@@ -70,8 +70,43 @@ Notes:-
 Default version inherited by control plane version
 
 #Creating Nidegroup from through file
-eksctl create nodegroup --config-file=<path>
+eksctl create nodegroup --config-file=cluster.yaml
+cat cluster.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
 
+metadata:
+  name: niru-eks
+  region: us-west-2
+vpc:
+  id: "vpc-12345"
+  securityGroup: "sg-044570cdaz901"    # this is the ControlPlaneSecurityGroup
+  subnets:
+    private:
+      nonprod-private-us-west-2a:
+          id: "subnet-12345"
+      nonprod-private-us-west-2b:
+          id: "subnet-678"
+      nonprod-private-us-west-2c:
+          id: "subnet-91011"
+    public:
+      nonprod-public-us-west-2a:
+          id: "subnet-public1"
+      nonprod-public-us-west-2b:
+          id: "subnet-public2"
+      nonprod-public-us-west-2c:
+          id: "subnet-public1"
+#nodeGroups:
+managedNodeGroups:
+  - name: ng1-backend
+#    ami: ami-07be7092831897fd6
+    instanceType: m5.large
+    desiredCapacity: 2
+    volumeSize: 100
+    privateNetworking: true
+    ssh: # use existing EC2 key
+      publicKeyName: e-33:20:2a:32:60:1f:e #prm key without .pem extention
+=====================================================================================
 #Creating Nodegroup from file
 eksctl create nodegroup --cluster=niru-eks \ 
                         --region=us-east-1 \
@@ -373,4 +408,11 @@ ip-192-168-53-133.ec2.internal   Ready    <none>   3h22m   v1.17.12-eks-7684af
 NAME            VERSION STATUS  CREATED                 VPC                     SUBNETS                                                                            SECURITYGROUPS
 niru-eks        1.19    ACTIVE  2021-06-11T08:38:15Z    vpc-0cde53e8ef20db59b   subnet-038e277c98d18d4bf,subnet-07b91da8d5527a61d,subnet-09689b415eb9cd829,subnet-0b87407b9eddde1d8 sg-070b8867c3d6fe49b
 ```
+```
 
+eksctl scale nodegroup --cluster=cluster-1 --nodes=5 ng-a345f4e1
+eksctl drain nodegroup --cluster=<clusterName> --name=<nodegroupName>
+eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
+
+
+```

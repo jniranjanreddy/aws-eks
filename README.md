@@ -3,17 +3,17 @@
 #How to install eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 mv eksctl /usr/local/bin/
-
+============================
 #How to create EKS Cluster
 
 #Specific version
-eksctl create cluster --version=1.18 \
-                      --name=niru-eks \
+eksctl create cluster  --version=1.18 \
+                       --name=niru-eks \
                        --region=us-east-1 \
 	               --zones=us-east-1a,us-east-1b \
 		       --without-nodegroup
-
-#eksctl create cluster --name=niru-eks \
+#latest version
+eksctl create cluster  --name=niru-eks \
                        --region=us-east-1 \
 	               --zones=us-east-1a,us-east-1b \
 		       --without-nodegroup
@@ -52,16 +52,28 @@ eksctl create cluster --version=1.18 \
 2021-06-08 14:14:02 [ℹ]  kubectl command should work with "/root/.kube/config", try 'kubectl get nodes'
 2021-06-08 14:14:02 [✔]  EKS cluster "niru-eks" in "us-east-1" region is ready
 ========================================================================================================
+# IAM OIDC = (OpenID Connect)
 # eksctl utils associate-iam-oidc-provider \
-        --region us-east-1 \
-        --cluster niru-eks \
-	--approve
+                        --region us-east-1 \
+                        --cluster niru-eks \
+	                --approve
 2021-06-08 14:23:21 [ℹ]  eksctl version 0.52.0
 2021-06-08 14:23:21 [ℹ]  using region us-east-1
 2021-06-08 14:23:33 [ℹ]  will create IAM Open ID Connect provider for cluster "niru-eks" in "us-east-1"
 2021-06-08 14:23:40 [✔]  created IAM Open ID Connect provider for cluster "niru-eks" in "us-east-1"
 ========================================================================================================
-eksctl create nodegroup --cluster=niru-eks \
+# Creating NodeBroups
+Notes:-
+  #Some more flags
+--version=1.10 # For Specific version
+--version=latest # For highest available version
+Default version inherited by control plane version
+
+#Creating Nidegroup from through file
+eksctl create nodegroup --config-file=<path>
+
+#Creating Nodegroup from file
+eksctl create nodegroup --cluster=niru-eks \ 
                         --region=us-east-1 \
 			--name=niru-eks-ng-public1 \
 			--node-type=t3.medium \

@@ -409,8 +409,21 @@ NAME            VERSION STATUS  CREATED                 VPC                     
 niru-eks        1.19    ACTIVE  2021-06-11T08:38:15Z    vpc-0cde53e8ef20db59b   subnet-038e277c98d18d4bf,subnet-07b91da8d5527a61d,subnet-09689b415eb9cd829,subnet-0b87407b9eddde1d8 sg-070b8867c3d6fe49b
 ```
 ```
+#Scaling Nodes in nodegroup
+eksctl scale nodegroup --cluster=niru-eks --nodes=3 dev-eks-ng-public1
+[root@minikube01 ~]# eksctl scale nodegroup --cluster=dev-eks --nodes=3 dev-eks-ng-public1
+2021-06-17 02:13:19 [ℹ]  scaling nodegroup "dev-eks-ng-public1" in cluster dev-eks
+2021-06-17 02:13:32 [ℹ]  waiting for scaling of nodegroup "dev-eks-ng-public1" to complete
+2021-06-17 02:13:49 [ℹ]  waiting for scaling of nodegroup "dev-eks-ng-public1" to complete
+2021-06-17 02:13:49 [ℹ]  nodegroup successfully scaled
 
-eksctl scale nodegroup --cluster=cluster-1 --nodes=5 ng-a345f4e1
+#Descaling Nodes in Nodegroup
+[root@minikube01 ~]# eksctl scale nodegroup --cluster=dev-eks --nodes=2 dev-eks-ng-public1
+2021-06-17 02:17:09 [ℹ]  scaling nodegroup "dev-eks-ng-public1" in cluster dev-eks
+2021-06-17 02:17:23 [ℹ]  waiting for scaling of nodegroup "dev-eks-ng-public1" to complete
+2021-06-17 02:17:39 [ℹ]  waiting for scaling of nodegroup "dev-eks-ng-public1" to complete
+2021-06-17 02:17:40 [ℹ]  nodegroup successfully scaled
+
 eksctl drain nodegroup --cluster=<clusterName> --name=<nodegroupName>
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
 

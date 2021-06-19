@@ -15,8 +15,8 @@ CLUSTER=$(eksctl get cluster | egrep -v "eksctl|region|NAME" | awk '{print $1}')
 #[root@minikube01 aws-eks]# aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text
 #"https://oidc.eks.us-east-1.amazonaws.com/id/98A112BA42A0659420F980550A980674"
 
-4.    Create the following IAM trust policy file:
-YOUR_AWS_ACCOUNT_ID=${aws sts get-caller-identity --query Account --output text}
+#4.    Create the following IAM trust policy file:
+YOUR_AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 YOUR_AWS_REGION=$(aws configure get region)
 myID=$(aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text | cut -d"/" -f5)
 cat <<EOF > trust-policy.json
@@ -44,10 +44,10 @@ EOF
 aws iam create-role \
   --role-name AmazonEKS_EBS_CSI_DriverRole \
   --assume-role-policy-document file://"trust-policy.json"
-#
-6.    Attach your new IAM policy to the role:
+  
+#6.    Attach your new IAM policy to the role:
 aws iam attach-role-policy \
---policy-arn arn:aws:iam::111122223333:policy/AmazonEKS_EBS_CSI_Driver_Policy \
+--policy-arn arn:aws:iam::${YOUR_AWS_ACCOUNT_ID}:policy/AmazonEKS_EBS_CSI_Driver_Policy \
 --role-name AmazonEKS_EBS_CSI_DriverRole
 
 #7.    To deploy the Amazon EBS CSI driver, run one of the following commands based on your Region:

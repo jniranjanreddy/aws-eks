@@ -10,12 +10,15 @@ aws iam create-policy --policy-name AmazonEKS_EBS_CSI_Driver_Policy --policy-doc
 
 #3.    View your cluster's OIDC provider URL:
 CLUSTER=$(eksctl get cluster | egrep -v "eksctl|region|NAME" | awk '{print $1}')
-aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text
+#aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text
 
-[root@minikube01 aws-eks]# aws eks describe-cluster --name dev-eks --query "cluster.identity.oidc.issuer"
-"https://oidc.eks.us-east-1.amazonaws.com/id/98A112BA42A0659420F980550A980674"
+#[root@minikube01 aws-eks]# aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text
+#"https://oidc.eks.us-east-1.amazonaws.com/id/98A112BA42A0659420F980550A980674"
 
 4.    Create the following IAM trust policy file:
+YOUR_AWS_ACCOUNT_ID=${aws sts get-caller-identity --query Account --output text}
+YOUR_AWS_REGION=$(aws configure get region)
+myID=$(aws eks describe-cluster --name ${CLUSTER} --query "cluster.identity.oidc.issuer" --output text | cut -d"/" -f5)
 cat <<EOF > trust-policy.json
 {
   "Version": "2012-10-17",
@@ -23,19 +26,19 @@ cat <<EOF > trust-policy.json
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:oidc-provider/oidc.eks.YOUR_AWS_REGION.amazonaws.com/id/<XXXXXXXXXX45D83924220DC4815XXXXX>"
+        "Federated": "arn:aws:iam::${YOUR_AWS_ACCOUNT_ID}:oidc-provider/oidc.eks.${YOUR_AWS_REGION}.amazonaws.com/id/${myID}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.YOUR_AWS_REGION.amazonaws.com/id/<XXXXXXXXXX45D83924220DC4815XXXXX>:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+          "oidc.eks.YOUR_AWS_REGION.amazonaws.com/id/${myID}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
         }
       }
     }
   ]
 }
 EOF
-Note: In step 4, replace YOUR_AWS_ACCOUNT_ID with your account ID. Replace YOUR_AWS_REGION with your AWS Region. Replace XXXXXXXXXX45D83924220DC4815XXXXX with the value returned in step 3.
+#Note: In step 4, replace YOUR_AWS_ACCOUNT_ID with your account ID. Replace YOUR_AWS_REGION with your AWS Region. Replace XXXXXXXXXX45D83924220DC4815XXXXX with the value returned in step 3.
 
 #5.    Create an IAM role:
 aws iam create-role \
@@ -57,17 +60,17 @@ aws iam attach-role-policy \
 #8.    Annotate the ebs-csi-controller-sa Kubernetes service account with the Amazon Resource Name (ARN) of the IAM role that you created earlier:
 kubectl annotate serviceaccount ebs-csi-controller-sa \
 -n kube-system \
-eks.amazonaws.com/role-arn=arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/AmazonEKS_EBS_CSI_DriverRole
+eks.amazonaws.com/role-arn=arn:aws:iam::${YOUR_AWS_ACCOUNT_ID}:role/AmazonEKS_EBS_CSI_DriverRole
 #Note: Replace YOUR_AWS_ACCOUNT_ID with your account ID.
 
 #9.    Delete the driver pods:
 kubectl delete pods \
-  -n kube-system \
-  -l=app=ebs-csi-controller
+-n kube-system \
+-l=app=ebs-csi-controller
 #Note: The driver pods are automatically redeployed with the IAM permissions from the IAM policy assigned to the role. For more information, see Amazon EBS CSI driver.
   
 ################################
-Test the Amazon EBS CSI driver:
+#Test the Amazon EBS CSI driver:
 ################################
 
 #You can test your Amazon EBS CSI driver with an application that uses dynamic provisioning. The Amazon EBS volume is provisioned on demand.
@@ -99,15 +102,4 @@ kubectl describe pv your_pv_name
 #8.    Verify that the pod is writing data to the volume:
 kubectl exec -it app -- cat /data/out.txt
 #Note: The command output displays the current date and time stored in the /data/out.txt file. The file includes the day, month, date, and time. 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   

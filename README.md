@@ -430,3 +430,28 @@ eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
 
 
 ```
+```
+[root@minikube01 ~]# eksctl utils install-vpc-controllers --cluster dev-eks --approve
+2021-06-21 13:05:50 [ℹ]  using region us-east-1
+2021-06-21 13:06:15 [ℹ]  1 task: { 2 sequential sub-tasks: { create IAM role for serviceaccount "kube-system/vpc-resource-controller", create serviceaccount "kube-system/vpc-resource-controller" } }
+2021-06-21 13:06:15 [ℹ]  building iamserviceaccount stack "eksctl-dev-eks-addon-iamserviceaccount-kube-system-vpc-resource-controller"
+2021-06-21 13:06:15 [ℹ]  deploying stack "eksctl-dev-eks-addon-iamserviceaccount-kube-system-vpc-resource-controller"
+2021-06-21 13:06:15 [ℹ]  waiting for CloudFormation stack "eksctl-dev-eks-addon-iamserviceaccount-kube-system-vpc-resource-controller"
+2021-06-21 13:06:32 [ℹ]  waiting for CloudFormation stack "eksctl-dev-eks-addon-iamserviceaccount-kube-system-vpc-resource-controller"
+2021-06-21 13:06:55 [ℹ]  waiting for CloudFormation stack "eksctl-dev-eks-addon-iamserviceaccount-kube-system-vpc-resource-controller"
+2021-06-21 13:07:02 [ℹ]  serviceaccount "kube-system/vpc-resource-controller" already exists
+2021-06-21 13:07:02 [ℹ]  updated serviceaccount "kube-system/vpc-resource-controller"
+2021-06-21 13:07:03 [ℹ]  created "ClusterRole.rbac.authorization.k8s.io/vpc-resource-controller"
+2021-06-21 13:07:03 [ℹ]  created "ClusterRoleBinding.rbac.authorization.k8s.io/vpc-resource-controller"
+2021-06-21 13:07:04 [ℹ]  created "kube-system:Deployment.apps/vpc-resource-controller"
+2021/06/21 13:07:04 [INFO] generate received request
+2021/06/21 13:07:04 [INFO] received CSR
+2021/06/21 13:07:04 [INFO] generating key: rsa-2048
+2021/06/21 13:07:04 [INFO] encoded CSR
+2021-06-21 13:07:04 [ℹ]  created "CertificateSigningRequest.certificates.k8s.io/vpc-admission-webhook.kube-system"
+2021-06-21 13:07:05 [ℹ]  waiting for certificate to be available
+2021-06-21 13:07:05 [ℹ]  created "kube-system:secret/vpc-admission-webhook-certs"
+2021-06-21 13:07:06 [ℹ]  created "kube-system:Service/vpc-admission-webhook"
+2021-06-21 13:07:07 [ℹ]  created "kube-system:Deployment.apps/vpc-admission-webhook"
+2021-06-21 13:07:07 [ℹ]  created "kube-system:MutatingWebhookConfiguration.admissionregistration.k8s.io/vpc-admission-webhook-cfg"
+```

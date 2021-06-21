@@ -38,9 +38,12 @@ if [ "$1" ==  "create" ];then
 
     kubectl get nodes
 
+    echo "Bootstraping.."
     echo "Creating Autoscaler group"
-#    kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+    eksctl utils install-vpc-controllers --cluster dev-eks --approve
+    kubectl apply -f kube2iam.yaml
+    
 
 else 
 

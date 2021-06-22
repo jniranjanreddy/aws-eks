@@ -1,22 +1,24 @@
 #!/bin/bash
 
+CLUSTER=uat-eks
+
 if [ "$1" ==  "create" ];then
 
     clear
     echo "Creating Cluster"
     eksctl create cluster  --version=1.17 \
-               --name=dev-eks \
+               --name=${CLUSTER} \
                --region=us-east-1 \
                --zones=us-east-1a,us-east-1b \
 	       --without-nodegroup
 
     eksctl utils associate-iam-oidc-provider \
         --region us-east-1 \
-        --cluster dev-eks \
+        --cluster uat-eks \
 	--approve
 
 
-    eksctl create nodegroup --cluster=dev-eks \
+    eksctl create nodegroup --cluster=${CLUSTER} \
                         --region=us-east-1 \
 			--name=dev-eks-ng-public1 \
 			--node-type=t3.medium \
@@ -38,15 +40,14 @@ if [ "$1" ==  "create" ];then
 
     kubectl get nodes
 
-    echo "Bootstraping.."
     echo "Creating Autoscaler group"
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-    eksctl utils install-vpc-controllers --cluster dev-eks --approve
-    kubectl apply -f kube2iam.yaml
-    
+#kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+ kubectl apply -f kube2iam.yaml
+
 
 else 
-
-    eksctl delete cluster dev-eks
+    clear
+    echo "Deleting cluster"
+    eksctl delete cluster ${CLUSTER}
 
 fi

@@ -31,4 +31,9 @@ b2d5eeeaba3a: Pushed
 latest: digest: sha256:219a237ef332f0593d3f1cfd138549a591470425f34a8e091c7d2eb9810b9ca5 size: 1362
 [root@minikube01 ~]#
 
+[root@minikube01 ~]# docker pull ${myID}.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+latest: Pulling from aws-ecr-kubenginx
+Digest: sha256:219a237ef332f0593d3f1cfd138549a591470425f34a8e091c7d2eb9810b9ca5
+Status: Downloaded newer image for 936766936551.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+936766936551.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
 ```

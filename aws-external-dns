@@ -1,0 +1,197 @@
+EKS is a powerful tool to easily launch and manage a Kubernetes cluster on AWS. 
+This service allows you to run a vast amount of applications in your cluster and integrates well with other AWS services such as elastic load balancing.
+However, creating and managing Route53 records for all the endpoints in your cluster can be tedious and time-consuming, this is where external DNS comes into play. 
+This service will automatically manage the DNS records of your ingresses and services which will save you countless hours on your projects.
+
+
+    How does external DNS work?
+    How to set up external DNS in your Cluster
+    Setting up Route53 permissions for your external DNS
+    Setting up the identity provider
+    Installing the external DNS
+    Using the external DNS
+    Debugging the external DNS
+
+How does external DNS work?
+In short, external DNS is a pod running in your EKS cluster which watches over all your ingresses. When it detects an ingress with a host specified, 
+it automatically picks up the hostname as well as the endpoint and creates a record for that resource in Route53. 
+If the host is changed or deleted, external DNS will reflect the change immediately in Route53.
+
+How to set up external DNS in your Cluster
+The setup can be divided into two parts, setting up permissions (to give your service access to Route53) and deploying the external DNS.
+
+Setting up Route53 permissions for your external DNS
+In this tutorial we will make use of an IAM role with an ID provider, 
+this approach has been used and documented in other tutorials such as the one on AWS application load balancers.
+
+The main idea here is to give the external DNS pod the permission to create, update and delete Route53 records in your AWS account. To do so,
+we need to use an identity provider in AWS IAM service. An identity provider allows an external user to assume roles in your AWS account by setting up a trust relationship.
+
+
+Setting up the identity provider
+To create an identity provider you need 3 things: a type of identity provider, an audience, and a provider URL.
+In this tutorial, we will use OpenId Connect for the provider type and sts.amazonaws.com for the audience.
+
+The provider url varies, to get your provider url you can use the following command:
+
+aws eks describe-cluster --name <CLUSTER_NAME> --query “cluster.identity.oidc.issuer” --output text
+
+The output should look something like this:
+
+https://oidc.eks.<region>.amazonaws.com/id/EXAMPLE86F27C29EF05B482628D9790EA7066.
+
+You now have everything you need to set up your own identity provider!
+
+Head over to the identity provider section of IAM in the AWS console and create a new provider.
+
+new provider
+Now that you have an identity provider, all that’s left to do is creating an IAM role with Route53 permissions and a trust relationship with your brand new provider.
+
+First, create a new role in IAM and trust your provider by selecting Web Identity and inputting your provider information.
+
+new role in IAM
+Once this has been completed, click create a new policy and input the following in JSON:
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ChangeResourceRecordSets"
+      ],
+      "Resource": [
+        "arn:aws:route53:::hostedzone/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+view rawexternalDnsPolicy.json hosted with ❤ by GitHub
+Then attach the AmazonEKSClusterPolicy to the role as well.
+
+Once the role is created, keep the ARN, you will need it later.
+
+Installing the external DNS
+We will install the external DNS using helm, if you do not have helm installed on the machine you can find instructions to install helm.
+
+Once you have helm installed, connect to your cluster and run the following command:
+
+helm install <RELEASE_NAME> stable/external-dns \
+--set provider=aws \
+--set domainFilters[0]=<DOMAIN_FILTER>\
+--set policy=sync \
+--set registry=txt \
+--set txtOwnerId=<HOSTED_ZONE_ID> \
+--set interval=3m \
+--set rbac.create=true \
+--set rbac.serviceAccountName=external-dns \
+--set rbac.serviceAccountAnnotations.eks\.amazonaws\.com/role-arn=<ROLE_ARN>
+view rawhelm_command.sh hosted with ❤ by GitHub
+RELEASE_NAME - name of the helm release, can be anything you want (external-dns for example)
+
+DOMAIN_FILTER - name of your Route53 hosted zone if *.example.com would be example.com. You can find this information in the AWS console (Route53)
+
+HOSTED_ZONE_ID - id of your hosted zone in AWS. You can find this information in the AWS console (Route53)
+
+ROLE_ARN - ARN of the role you created earlier in the tutorial
+
+Once you’ve run the command you can check that your newly created service is running in your cluster:
+
+kubectl get po -n kube-system (you should see an external DNS pod)
+
+Using the external DNS
+To create a new Route53 record for your services all you need to do is add the annotation: external-dns.alpha.kubernetes.io/hostname
+
+Example for a LoadBalancer service:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: test
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: myservice.example.com 
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+  selector:
+    app: test
+view rawloadBalancer.yaml hosted with ❤ by GitHub
+NodePort service:
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: myservice.example.com 
+  name: test
+spec:
+  externalIPs:
+  - 1.2.3.4
+  - 4.5.6.7
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30001 #will give you a random 3XXXX port
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: test
+  type: NodePort
+
+view rawnodePort.yaml hosted with ❤ by GitHub
+For an ingress:
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    external-dns.alpha.kubernetes.io/hostname: myservice.example.com 
+    kubernetes.io/ingress.class: alb
+  name: test
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: test
+          servicePort: 80
+        path: /
+
+view rawingress.yaml hosted with ❤ by GitHub
+Debugging the external DNS
+If the Route53 records haven’t been created after 5 minutes you might want to check the logs of your external DNS pod. To do so run the following:
+
+k logs -n kube-system <EXTERNAL_DNS_POD_NAME>
+
+To conclude, using an external DNS in your EKS cluster will make your life much easier when it comes to managing Route53 records and, as described above, is very easy to set up yourself.
+
+Baptiste Guerin
+Baptiste Guerin
+
+Baptiste is a Site Reliability Engineer (SRE) at Padok. He works with a broad set of DevOps Technologies, such as Kubernetes, G-Cloud, AWS, and Gitlab CI
+
+CLOUD & KUBERNETES
+
+Vous avez un projet Cloud ?
+
+Contactez-nous
+Share
+
+Notre dernier cas client
+
+XXII et Padok ont collaboré sur un projet techniquement complexe pour industrialiser, stabiliser et sécuriser la solution XXII Smart City
+

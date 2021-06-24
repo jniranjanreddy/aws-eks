@@ -1,0 +1,39 @@
+
+Use the following steps to authenticate and push an image to your repository. For additional registry authentication methods, including the Amazon ECR credential helper, 
+see Registry Authentication .
+
+Retrieve an authentication token and authenticate your Docker client to your registry.
+Use the AWS CLI:
+#aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${myID}.dkr.ecr.us-east-1.amazonaws.com
+```
+myID=`aws sts get-caller-identity --query Account --output text`
+[root@minikube01 ~]# aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${myID}.dkr.ecr.us-east-1.amazonaws.com
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[root@minikube01 ~]#
+
+```
+How to tag for AWS ECR..
+```
+myID=`aws sts get-caller-identity --query Account --output text`
+[root@minikube01 ~]# docker tag httpd:alpine ${myID}.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+
+[root@minikube01 ~]# docker push ${myID}.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+The push refers to repository [936766936551.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx]
+fe69c17d6f46: Pushed
+cc5c47acbd59: Pushed
+cfacc56b6788: Pushed
+d17b5320c568: Pushed
+b2d5eeeaba3a: Pushed
+latest: digest: sha256:219a237ef332f0593d3f1cfd138549a591470425f34a8e091c7d2eb9810b9ca5 size: 1362
+[root@minikube01 ~]#
+
+[root@minikube01 ~]# docker pull ${myID}.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+latest: Pulling from aws-ecr-kubenginx
+Digest: sha256:219a237ef332f0593d3f1cfd138549a591470425f34a8e091c7d2eb9810b9ca5
+Status: Downloaded newer image for 936766936551.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+936766936551.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:latest
+```

@@ -9,17 +9,17 @@ if ARGUMENT == "apply":
     # Execute OS Commands
     command1 = ("eksctl create cluster  --version=1.17 \
                --name={} \
-               --region=us-east-2 \
-               --zones=us-east-2a,us-east-2b \
+               --region=ap-south-1 \
+               --zones=ap-south-1a,ap-south-1b \
                --without-nodegroup".format(CLUS_NAME))
     os.system(command1)
     command2 = ("eksctl utils associate-iam-oidc-provider \
-               --region us-east-2 \
+               --region ap-south-1 \
                --cluster {} \
                --approve".format(CLUS_NAME))
     os.system(command2)
     command3 = ("eksctl create nodegroup --cluster={} \
-               --region=us-east-2 \
+               --region=ap-south-1 \
                --name=dev-eks-ng-public1 \
                --node-type=t3.medium \
                --nodes=2 \

@@ -1,0 +1,12 @@
+{
+    "Users": [
+        {
+            "Path": "/",
+            "UserName": "devops",
+            "UserId": "AIDA5UG5JCXTSRABZOHDK",
+            "Arn": "arn:aws:iam::936766936551:user/devops",
+            "CreateDate": "2021-06-08T17:16:46+00:00"
+        }
+    ]
+}
+

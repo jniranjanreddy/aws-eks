@@ -20,7 +20,7 @@ if ARGUMENT == "apply":
     os.system(command2)
     command3 = ("eksctl create nodegroup --cluster={} \
                --region=ap-south-1 \
-               --name=dev-eks-ng-public1 \
+               --name=private-ng \
                --node-type=t3.medium \
                --nodes=2 \
                --nodes-min=2 \
@@ -33,9 +33,10 @@ if ARGUMENT == "apply":
                --external-dns-access \
                --full-ecr-access \
                --appmesh-access \
+               --node-private-networking \
                --alb-ingress-access".format(CLUS_NAME))
     os.system(command3)
-    command4 = ("eksctl get cluster ; kubectl get nodes")
+    command4 = ("eksctl get cluster ; kubectl get nodes -o wide")
     os.system(command4)
 
 elif ARGUMENT  == "destroy":

@@ -3,7 +3,7 @@ import sys
 import os
 import subprocess
 #CLUS_NAME = sys.argv[1]
-subprocess.call(["df", "-h"])
+subprocess.call(["uname", "-a"])
 
 
 #eksVPC = ("aws ec2 describe-vpcs | jq '.[][].VpcId' | tail -1 | sed 's/"//g')

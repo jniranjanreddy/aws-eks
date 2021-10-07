@@ -27,7 +27,7 @@ if ARGUMENT == "apply":
                --nodes-max=4 \
                --node-volume-size=20 \
                --ssh-access \
-               --ssh-public-key=mumbai \
+               --ssh-public-key=k8sniranjan-mumbai \
                --managed \
                --asg-access \
                --external-dns-access \
@@ -44,4 +44,4 @@ elif ARGUMENT  == "destroy":
     command5 = ("eksctl delete cluster {}".format(CLUS_NAME))
     os.system(command5)
 else:
-    print("execute: " + sys.argv[0] + " apply/destroy")
+    print("execute: " + sys.argv[0] + " apply/destroy ClusterName")

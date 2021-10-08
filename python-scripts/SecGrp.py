@@ -9,8 +9,17 @@ if firstARG == "apply":
         --description 'Allow access for RDS Database on Port 3306' \
         --vpc-id {}".format(vpcID))
     os.system(CMD1)
+    DBSQ = ("aws ec2 create-security-group \
+        --group-name eks-rds-db-securitygroup \
+        --description 'Allow access for RDS Database on Port 3306' \
+        --vpc-id {}".format(vpcID))
+    os.system(DBSQ)
 elif firstARG  == "destroy":
     CMD2 = ("aws ec2 delete-security-group --group-id {}".format(vpcID))
     os.system(CMD2)
+    #Deleting Database SG
+    DBSQ = ("aws ec2 delete-security-group --group-id {}".format(vpcID))
+    os.system(DBSQ)
+
 else:
     print("execute: " + sys.argv[0] + " apply/destroy VPC-ID/Security Group")

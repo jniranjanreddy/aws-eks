@@ -33,7 +33,7 @@ if ARGUMENT == "apply":
                --external-dns-access \
                --full-ecr-access \
                --appmesh-access \
-               #--node-private-networking \
+               --node-private-networking \
                --alb-ingress-access".format(CLUS_NAME))
     os.system(command3)
     command4 = ("eksctl get cluster ; kubectl get nodes -o wide")

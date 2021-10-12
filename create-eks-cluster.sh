@@ -10,7 +10,7 @@ if [ "$1" ==  "create" ];then
                --name=${CLUSTER} \
                --region=us-east-1 \
                --zones=us-east-1a,us-east-1b \
-	       --without-nodegroup
+	           --without-nodegroup
 
     eksctl utils associate-iam-oidc-provider \
         --region us-east-1 \
@@ -43,8 +43,6 @@ if [ "$1" ==  "create" ];then
     echo "Creating Autoscaler group"
 #kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
  kubectl apply -f kube2iam.yaml
-
-
 else 
     clear
     echo "Deleting cluster"

@@ -21,7 +21,8 @@ if ARGUMENT == "apply":
     command3 = ("eksctl create nodegroup --cluster={} \
                --region=ap-south-1 \
                --name=private-ng \
-               --node-type=t3.medium \
+               #--node-type=t3.medium \
+               --node-type=t2.micro \
                --nodes=2 \
                --nodes-min=2 \
                --nodes-max=4 \

@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 import sys
 import os
+def Clear():
+    cls = ("clear")
+    os.system(cls)
+Clear()
+
 CLUS_NAME = sys.argv[2]
 # checking the argument 
 ARGUMENT = sys.argv[1]
 if ARGUMENT == "apply":
+    Clear()
     print("Sit back and relax, {} is being Deployed".format(CLUS_NAME))
     # Execute OS Commands
     command1 = ("eksctl create cluster  --version=1.17 \
@@ -40,6 +46,7 @@ if ARGUMENT == "apply":
     os.system(command4)
 
 elif ARGUMENT  == "destroy":
+    Clear()
     print("Sit back and relax, {} is being Destroyed.".format(CLUS_NAME))
     command5 = ("eksctl delete cluster {}".format(CLUS_NAME))
     os.system(command5)

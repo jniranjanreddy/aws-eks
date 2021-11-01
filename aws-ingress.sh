@@ -12,8 +12,6 @@ kubectl get sa -n kube-system
 # Describe Service Account alb-ingress-controller 
 kubectl describe sa alb-ingress-controller -n kube-system
 
-
-
 eksctl create iamserviceaccount \
     --region ap-south-1 \
     --name alb-ingress-controller \

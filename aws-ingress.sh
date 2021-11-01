@@ -16,10 +16,9 @@ eksctl create iamserviceaccount \
     --region ap-south-1 \
     --name alb-ingress-controller \
     --namespace kube-system \
-    --cluster sita-dev \
-    --attach-policy-arn arn:aws:iam::426055013203:policy/ALBIngressControllerIAMPolicy \
+    --cluster sita-dev02 \
+    --attach-policy-arn arn:aws:iam::936766936551:policy/ALBIngressControllerIAMPolicy \
     --override-existing-serviceaccounts \
     --approve
-
 #Deploying Ingress Controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/master/docs/examples/alb-ingress-controller.yaml

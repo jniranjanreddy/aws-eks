@@ -16,7 +16,7 @@ eksctl create iamserviceaccount \
     --region ap-south-1 \
     --name alb-ingress-controller \
     --namespace kube-system \
-    --cluster sita-dev02 \
+    --cluster rama-dev01 \
     --attach-policy-arn arn:aws:iam::936766936551:policy/ALBIngressControllerIAMPolicy \
     --override-existing-serviceaccounts \
     --approve

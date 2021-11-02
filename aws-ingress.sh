@@ -1,5 +1,5 @@
 #!/bin/bash
-#step-01
+#step-01 
 # List Service Accounts
 kubectl get sa -n kube-system
 

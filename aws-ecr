@@ -1,4 +1,30 @@
 
+```
+Create ECR through Command Line.
+
+[root@minikube01 ~]# aws ecr create-repository \
+> --repository-name ecr-simplehttp \
+> --region ap-south-1 \
+> --image-scanning-configuration scanOnPush=true
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:ap-south-1:936766936551:repository/ecr-simplehttp",
+        "registryId": "936766936551",
+        "repositoryName": "ecr-simplehttp",
+        "repositoryUri": "936766936551.dkr.ecr.ap-south-1.amazonaws.com/ecr-simplehttp",
+        "createdAt": "2021-11-26T12:08:32-05:00",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": true
+        },
+        "encryptionConfiguration": {
+            "encryptionType": "AES256"
+        }
+    }
+}
+
+```
+
 Use the following steps to authenticate and push an image to your repository. For additional registry authentication methods, including the Amazon ECR credential helper, 
 see Registry Authentication .
 

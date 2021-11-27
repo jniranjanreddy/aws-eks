@@ -3,9 +3,9 @@
 Create ECR through Command Line.
 
 [root@minikube01 ~]# aws ecr create-repository \
-> --repository-name ecr-simplehttp \
-> --region ap-south-1 \
-> --image-scanning-configuration scanOnPush=true
+--repository-name ecr-simplehttp \
+--region ap-south-1 \
+--image-scanning-configuration scanOnPush=true
 {
     "repository": {
         "repositoryArn": "arn:aws:ecr:ap-south-1:936766936551:repository/ecr-simplehttp",

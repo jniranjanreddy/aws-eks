@@ -1,3 +1,11 @@
+Registry - One Registry per accout/region
+
+
+
+Docker Build and Tag
+docker build -t .
+docker
+
 
 Use the following steps to authenticate and push an image to your repository. For additional registry authentication methods, including the Amazon ECR credential helper, 
 see Registry Authentication .

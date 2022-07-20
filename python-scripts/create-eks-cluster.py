@@ -34,7 +34,7 @@ if ARGUMENT == "apply":
                --nodes-max=4 \
                --node-volume-size=20 \
                --ssh-access \
-               --ssh-public-key=seneca \
+               --ssh-public-key=ap-south-1-keypair \
                --managed \
                --asg-access \
                --external-dns-access \

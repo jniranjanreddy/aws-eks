@@ -14,7 +14,7 @@ if ARGUMENT == "apply":
     print("Sit back and relax, {} is being Deployed".format(CLUS_NAME))
     # Execute OS Commands
     #command1 = ("eksctl create cluster  --version=1.17 \
-    command1 = ("eksctl create cluster  --version=1.17 \
+    command1 = ("eksctl create cluster  --version=1.20 \
                --name={} \
                --region=ap-south-1 \
                --zones=ap-south-1a,ap-south-1b \
@@ -40,6 +40,7 @@ if ARGUMENT == "apply":
                --external-dns-access \
                --full-ecr-access \
                --appmesh-access \
+               --node-private-networking \
                --alb-ingress-access".format(CLUS_NAME))
     os.system(command3)
     command4 = ("eksctl get cluster ; kubectl get nodes -o wide")

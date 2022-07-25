@@ -1,0 +1,24 @@
+# How to install Cloudwatch in EKS
+Source - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-metrics.html
+
+# Create name Space
+kubectl apply -f https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/cloudwatch-namespace.yaml
+
+# Create Service account
+kubectl apply -f https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/cwagent/cwagent-serviceaccount.yaml
+
+
+# Download ConfigMap and update Cluster and 
+curl -O https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/cwagent/cwagent-configmap.yaml
+
+# Deploy ConfigMap
+kubectl apply -f cwagent-configmap.yaml
+
+# we can see the Cloudwatch running
+root@dev-server01:~# k get pods -n amazon-cloudwatch
+NAME                     READY   STATUS    RESTARTS   AGE
+cloudwatch-agent-9m4kz   1/1     Running   0          4m57s
+cloudwatch-agent-jm9gs   1/1     Running   0          4m57s
+cloudwatch-agent-z5nl2   1/1     Running   0          4m57s
+root@dev-server01:~#
+

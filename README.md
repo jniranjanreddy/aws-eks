@@ -1,4 +1,12 @@
 # aws-eks
+## Quick EKS Deployment 
+```
+eksctl create cluster --name=aws-eks --region=ap-south-1 --nodes=3
+eksctl delete cluster --name=aws-eks --region=ap-south-1 --nodes=3
+```
+
+
+
 ```
 #How to install eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp

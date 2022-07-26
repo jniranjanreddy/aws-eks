@@ -1,4 +1,20 @@
 # aws-eks
+### Important Services/Pods
+
+	1. CodeDns
+	2. Ingress-nginx-Controller
+	3. Cloudwatch-agent
+	4. cwagent-prometheus
+	5. fluentd
+	6. consul
+	7. External-Dns
+	9. keel
+	10. Cluster-autoscaler
+	11. ExernalSecrets
+	12. Metrics Server
+
+
+
 ## Quick EKS Deployment 
 ```
 eksctl create cluster --name=aws-eks --region=ap-south-1 --nodes=3

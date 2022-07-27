@@ -1,2 +1,17 @@
-ALB is superadvanced and next generation Load Balancer
+ALB is superadvanced and next generation Load Balancer..
 
+  1. Path-based Routing (/app1, /app2, /usermgmt)
+  2. Host Based Routing - (apps.jnrlabs.com, users.jnrlabs.com)
+  3. Routing Based on Fields in the request
+       a. HTTP Headers
+       b. HTTP methods
+       c. Query Parameters
+       d. Source IP Address
+ 4. Redirecting Requests from one to another URL
+ 5. support for returning a Custom response
+ 6. Support for registering Lambda Functions as targets.
+ 7. Support for Containerized Applications AWS ECS
+ 8. Support for Monitoring the Health of each service independently, as health checks are defined at the Target Group level
+ 9. Support for registering targets by IPAddress, including targets outside the VPC for the Load balancer
+ 
+ 

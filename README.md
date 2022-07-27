@@ -21,6 +21,11 @@ eksctl create cluster --name=aws-eks --region=ap-south-1 --nodes=3
 eksctl delete cluster --name=aws-eks --region=ap-south-1 --nodes=3
 ```
 
+## How to add a eks cluste to context
+```
+root@dev-server01:~#  aws eks --region ap-south-1 update-kubeconfig --name demo2
+Added new context arn:aws:eks:ap-south-1:xxxxxxxxx:cluster/demo2 to /root/.kube/config
+```
 
 
 ```

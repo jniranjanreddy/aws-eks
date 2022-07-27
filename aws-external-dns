@@ -12,6 +12,7 @@ This service will automatically manage the DNS records of your ingresses and ser
     Using the external DNS
     Debugging the external DNS
 
+
 How does external DNS work?
 In short, external DNS is a pod running in your EKS cluster which watches over all your ingresses. When it detects an ingress with a host specified, 
 it automatically picks up the hostname as well as the endpoint and creates a record for that resource in Route53. 
@@ -28,7 +29,7 @@ The main idea here is to give the external DNS pod the permission to create, upd
 we need to use an identity provider in AWS IAM service. An identity provider allows an external user to assume roles in your AWS account by setting up a trust relationship.
 
 
-Setting up the identity provider
+Setting up the identity provider:-
 To create an identity provider you need 3 things: a type of identity provider, an audience, and a provider URL.
 In this tutorial, we will use OpenId Connect for the provider type and sts.amazonaws.com for the audience.
 
@@ -112,7 +113,8 @@ kubectl get po -n kube-system (you should see an external DNS pod)
 Using the external DNS
 To create a new Route53 record for your services all you need to do is add the annotation: external-dns.alpha.kubernetes.io/hostname
 
-Example for a LoadBalancer service:
+## Example for a LoadBalancer service:
+## =======================================
 
 apiVersion: v1
 kind: Service
@@ -130,6 +132,7 @@ spec:
     app: test
 view rawloadBalancer.yaml hosted with ❤ by GitHub
 NodePort service:
+
 
 apiVersion: v1
 kind: Service

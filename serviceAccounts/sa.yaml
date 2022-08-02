@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app
+  namespace: default
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::517765117082:role/S3TestAccessRole

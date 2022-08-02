@@ -1,0 +1,29 @@
+There are some restrictions when using an awsElasticBlockStore volume:
+
+the nodes on which pods are running must be AWS EC2 instances
+those instances need to be in the same region and availability zone as the EBS volume
+EBS only supports a single EC2 instance mounting a volume
+
+
+Creating an AWS EBS volume
+aws ec2 create-volume --availability-zone=ap-south-1a --size=10 --volume-type=gp2
+
+Pod deployment.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-ebs
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-ebs
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This AWS EBS volume must already exist.
+    awsElasticBlockStore:
+      volumeID: "<volume id>" #vol-09d1ce8f1a0532059
+      fsType: ext4

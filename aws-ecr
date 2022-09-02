@@ -112,4 +112,47 @@ Images Lifecycle policy
         }
     ]
 }
-Images 
+
+```
+root@dev-server01:~# aws ecr list-images --repository-name registry --region eu-west-1
+{
+    "imageIds": [
+        {
+            "imageDigest": "sha256:480395b7be07df06368c93469df41343c1e6285f5b37d387b5a17f2e8708a2a3",
+            "imageTag": "nginx"
+        },
+        {
+            "imageDigest": "sha256:db9d074278b87089a6e8c7b36ae3e645ce783b8fababc28f5c35f7bef49553d2",
+            "imageTag": "node-14-5-0"
+        }
+    ]
+}
+## How to delete image
+root@dev-server01:~# aws ecr batch-delete-image --repository-name registry --region eu-west-1 --image-ids imageTag=nginx
+{
+    "imageIds": [
+        {
+            "imageDigest": "sha256:480395b7be07df06368c93469df41343c1e6285f5b37d387b5a17f2e8708a2a3",
+            "imageTag": "nginx"
+        }
+    ],
+    "failures": []
+}
+## Aws cli to Remove repository
+```
+root@dev-server01:~# aws ecr delete-repository --repository-name registry --region eu-west-1
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:eu-west-1:12345:repository/registry",
+        "registryId": "517765117082",
+        "repositoryName": "registry",
+        "repositoryUri": "12345.dkr.ecr.eu-west-1.amazonaws.com/registry",
+        "createdAt": "2022-09-02T19:49:48+05:30",
+        "imageTagMutability": "MUTABLE"
+    }
+}
+
+```
+
+
+```
